@@ -1,0 +1,20 @@
+- name: Create GCP VM
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create a new instance
+      gcp_compute_instance:
+        auth_kind: serviceaccount
+        service_account_file: "<path_to_your_service_account_key>.json"
+        project: "your-project-id"
+        zone: "us-central1-a"
+        name: "ansible-instance"
+        machine_type: "e2-micro"
+        disks:
+          - auto_delete: true
+            boot: true
+            initialize_params:
+              source_image: "projects/debian-cloud/global/images/debian-11"
+        network_interfaces:
+          - access_configs: [{}]
+            network: "global/networks/default"

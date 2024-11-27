@@ -1,0 +1,15 @@
+resources:
+- name: vm-instance
+  type: compute.v1.instance
+  properties:
+    zone: us-central1-a
+    machineType: zones/us-central1-a/machineTypes/e2-micro
+    disks:
+    - boot: true
+      initializeParams:
+        sourceImage: projects/debian-cloud/global/images/debian-11
+    networkInterfaces:
+    - network: global/networks/default
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT

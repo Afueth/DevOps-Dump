@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Deploy to GCP') {
+            steps {
+                sh '''
+                export GOOGLE_APPLICATION_CREDENTIALS=<path_to_service_account_key>.json
+                terraform init
+                terraform apply -auto-approve
+                '''
+            }
+        }
+    }
+}
